@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BROANIME GOLD - Shimmer Edition</title>
+<style>
+/* BACKGROUND SHIMMER GOLD BLACK */
+body{
+  margin:0;padding:15px;padding-bottom:90px;color:#fff;font-family:sans-serif;
+  background: #000;
+  background-image: 
+    radial-gradient(at 20% 30%, rgba(255,215,0,0.15) 0px, transparent 50%),
+    radial-gradient(at 80% 70%, rgba(255,165,0,0.15) 0px, transparent 50%),
+    linear-gradient(120deg, #000 0%, #111 20%, #000 40%, #1a1500 50%, #000 60%, #111 80%, #000 100%);
+  background-size: 200% 200%;
+  animation: shimmerBG 8s linear infinite;
+}
+@keyframes shimmerBG{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+h1{text-align:center;color:#FFD700;text-shadow:0 0 15px gold, 0 0 30px rgba(255,215,0,0.5);letter-spacing:2px}
+#search{width:100%;padding:14px;border-radius:12px;border:1px solid #FFD700;background:rgba(20,20,20,0.8);backdrop-filter:blur(10px);color:#fff;margin-bottom:18px;box-sizing:border-box;box-shadow:0 0 15px rgba(255,215,0,0.2)}
+/* CARD SHIMMER */
+.card{
+  background: linear-gradient(110deg, #111 8%, #1a1a1a 18%, #222 33%, #111 45%);
+  background-size: 200% 100%;
+  animation: shimmerCard 3s linear infinite;
+  border:1px solid rgba(255,215,0,0.3);
+  border-left:3px solid #FFD700;
+  padding:14px;margin-bottom:12px;border-radius:14px;
+  display:flex;justify-content:space-between;align-items:center;
+  box-shadow:0 4px 15px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,215,0,0.1);
+}
+@keyframes shimmerCard{
+  0%{background-position:-200% 0}
+  100%{background-position:200% 0}
+}
+.card span{font-size:14px;flex:1;margin-right:10px;z-index:2}
+.btn{
+  background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;font-weight:bold;
+  padding:9px 20px;border-radius:10px;border:none;cursor:pointer;white-space:nowrap;
+  box-shadow:0 0 10px rgba(255,215,0,0.6);
+  animation:pulse-gold 1.8s infinite;z-index:2
+}
+@keyframes pulse-gold{0%{box-shadow:0 0 0 0 rgba(255,215,0,0.7)}70%{box-shadow:0 0 18px 8px rgba(255,215,0,0)}100%{box-shadow:0 0 0 0 rgba(255,215,0,0)}}
+#ad-banner-bottom{
+  position:fixed;bottom:0;left:0;right:0;z-index:99999;
+  background:rgba(10,10,10,0.95);backdrop-filter:blur(10px);
+  padding:10px;text-align:center;border-top:2px solid #FFD700;
+  box-shadow:0 -5px 20px rgba(255,215,0,0.3);
+}
+</style></head><body>
+<h1> BROANIME GOLD</h1>
+<p style="text-align:center;color:#c9a961;font-size:12px;letter-spacing:1px">100 Donghua Cultivation • Xianxia • Action Sub Indo</p>
+<input id="search" placeholder=" Cari donghua... BTTH, Soul Land, Perfect World..." onkeyup="filter()">
+<div id="list"></div>
+<script>
+const anime=["Battle Through the Heavens (BTTH) S1-S5","Soul Land 1-2 (Douluo Dalu)","Perfect World (Wanmei Shijie)","Tales of Demons and Gods","A Will Eternal","Battle Against the Gods","Martial Universe","Stellar Transformation","Dragon Prince Yuan","Throne of Seal","Against The Gods","Apotheosis","Renegade Immortal","A Record of Mortal's Journey","God of Martial Arts","Tales of Herding Gods","Wu Geng Ji","Soul Land 2: The Unrivaled Tang Sect","The King Avatar","Tales of Demons and Gods S7","Battle Through The Heavens Origin","Perfect World S4","Swallowed Star (Tunshi Xingkong)","Soul Land Final Battle","Battle of the Heavens","The Great Ruler","Legend of Martial Immortal","Heavenly Sword and Dragon Slaying","Spirit Sword Sovereign","Immortal Doctor","Tales of Androgyny","Magic Chef","The Legend of Hei","Fog Hill of Five Elements","All Saints Street","Rakshasa Street","Psychic Princess","Heaven Official's Blessing","Scumbag System","Link Click","Tian Bao Fuyao Lu","White Snake Origin","Nezha Reborn","Jiang Ziya","Legend of Deification","Big Fish & Begonia","The King's Avatar S2","Battle Through Heavens S6","Soul Land: The Legend Continues","Perfect World 2024","Tales of Demons S8","A Mortal's Journey to Immortality","Stellar Transformations S5","Against the Sky Supreme","Battle Emperor","God of War","Ancient Lords","Legend of Dragon King","Douluo Dalu 2.5","Dragon Prince Yuan S3","Soul Land: Battle of The Gods","Swallowed Star S3","The Last Summoner","The Defective","All Hail The Sect Leader","My Senior Brother is Too Steady","The Girl Downstairs","Tales of the Phoenix","Battle Through The Heavens Special","Perfect World Special","Soul Land Special","Tales of Demons Special","Stellar Transformation Special","Dragon Prince Yuan Special","Swallowed Star Movie","BTTH Three Year Agreement","Soul Land: Tang San's Return","Perfect World: Battle of Gods","Tales of Herding Gods S2","Renegade Immortal S2","Apotheosis S2","Against The Gods S2","A Will Eternal S2","Tales of Demons and Gods S9","Battle Through Heavens S7","Soul Land S3","Perfect World S5","Stellar Transformation S6","Dragon Prince Yuan S4","Swallowed Star S4","God of Martial Arts S2","Throne of Seal S2","Martial Universe S3","Legend of Xianxia","Cultivation Master","The Strongest God","Invincible Sect Leader","The Greatest Sword","Dragon Warrior","Immortal King","The Founder of Diabolism","Heaven's Design","Demon Slayer China Version","One Piece Chinese Dub","Naruto Donghua Style","Dragon Ball Cultivation","BTTH Medusa Queen Arc","Soul Land: Sea God Arc","Perfect World: Shi Hao Rise","Tales of Demons: Nie Li Return"];
+const list=document.getElementById('list');
+function render(d){list.innerHTML='';d.forEach(j=>{list.innerHTML+=`<div class="card"><span>${j}</span><button class="btn" onclick="nonton('${j}')">NONTON</button></div>`})}
+function nonton(j){window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(j+' donghua sub indo')}`,'_blank')}
+function filter(){const q=document.getElementById('search').value.toLowerCase();render(anime.filter(r=>r.toLowerCase().includes(q)))}
+render(anime);
+</script>
+<div id="ad-banner-bottom">
+<div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:10px;color:#FFD700;font-weight:bold;letter-spacing:1px"> BRO OFFICIAL • BROANIME GOLD SHIMMER</div><span onclick="document.getElementById('ad-banner-bottom').style.display='none'" style="background:#FFD700;color:#000;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:bold;cursor:pointer;box-shadow:0 0 10px gold"> CLOSE</span></div>
+<a href="https://lynk.id/xtradevr/l2vvxm69po0n" style="text-decoration:none;display:block;margin-top:10px;"><div style="background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;font-weight:bold;padding:10px;border-radius:10px;font-size:13px;animation:pulse-gold 1.5s infinite;letter-spacing:0.5px"> BUNDLE 3 IN 1 BRO DRAMA+RESEP+ANIME 35K </div></a>
+</div></body></html>
